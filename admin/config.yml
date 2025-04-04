@@ -6,7 +6,6 @@ backend:
 
   site_url: https://finance-hub-360.netlify.app
 display_url: https://finance-hub-360.netlify.app
-logo_url: https://finance-hub-360.netlify.app/logo.png
 
 media_folder: "assets/images"
 public_folder: "/assets/images"
