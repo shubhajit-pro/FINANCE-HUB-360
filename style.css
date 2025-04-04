@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  background: #f0f2f5;
+}
+
+.sidebar {
+  width: 220px;
+  background: #fff;
+  padding: 1em;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  height: 100vh;
+  position: fixed;
+}
+
+.sidebar h1 {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+
+main {
+  margin-left: 240px;
+  padding: 2em;
+  flex: 1;
+}
+
+nav a {
+  display: block;
+  margin: 1em 0;
+  color: #333;
+  text-decoration: none;
+}
+
+#posts article {
+  background: #fff;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-left: 5px solid #0077cc;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
