@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   repo: shubhajit-pro/FINANCE-HUB-360
   branch: main
-  AUTH_SCOPE: REPO
+  auth_scope: repo
 
 media_folder: "assets/images"
 public_folder: "/assets/images"
