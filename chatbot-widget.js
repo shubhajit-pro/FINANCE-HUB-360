@@ -73,13 +73,13 @@ chatbotBtn.addEventListener('click', () => {
   chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
 });
 
-// Bot response logic
-function botReply(msg) {
+// Bot reply using faqData
+function getBotReply(msg) {
   msg = msg.toLowerCase();
-  if (msg.includes('gst')) return "GST (Goods & Services Tax) is a unified indirect tax in India.";
-  if (msg.includes('tds')) return "TDS (Tax Deducted at Source) is a means of collecting income tax in India.";
-  if (msg.includes('income tax')) return "Income Tax is levied on annual income of individuals and businesses.";
-  return null; // fallback
+  for (let keyword in faqData) {
+    if (msg.includes(keyword)) return faqData[keyword];
+  }
+  return null;
 }
 
 // Send message
@@ -87,7 +87,7 @@ sendBtn.addEventListener('click', () => {
   const userMsg = chatInput.value;
   if (!userMsg.trim()) return;
   messages.innerHTML += `<div><strong>You:</strong> ${userMsg}</div>`;
-  const response = botReply(userMsg);
+  const response = getBotReply(userMsg);
   if (response) {
     messages.innerHTML += `<div><strong>Bot:</strong> ${response}</div>`;
   } else {
