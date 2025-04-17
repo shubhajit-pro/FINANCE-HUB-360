@@ -1,0 +1,39 @@
+backend:
+  name: git-gateway
+  repo: shubhajit-pro/FINANCE-HUB-360-2
+  branch: main
+  auth_scope: repo
+
+  site_url: https://finance-hub-360-2.netlify.app
+display_url: https://finance-hub-360-2.netlify.app
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "posts"
+    label: "Blog Posts"
+    folder: "posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "About Page"
+        name: "about"
+        file: "about.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Body", name: "body", widget: "markdown" }
+
+      - label: "Contact Page"
+        name: "contact"
+        file: "contact.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Body", name: "body", widget: "markdown" }
