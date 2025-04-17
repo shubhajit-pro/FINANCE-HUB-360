@@ -1,5 +1,4 @@
-
-// Create chatbot container
+// Create chatbot button
 const chatbotBtn = document.createElement('div');
 chatbotBtn.innerHTML = '💬';
 chatbotBtn.style.position = 'fixed';
@@ -19,8 +18,8 @@ const chatWindow = document.createElement('div');
 chatWindow.style.position = 'fixed';
 chatWindow.style.bottom = '80px';
 chatWindow.style.right = '20px';
-chatWindow.style.width = '300px';
-chatWindow.style.maxHeight = '400px';
+chatWindow.style.width = '320px';
+chatWindow.style.maxHeight = '420px';
 chatWindow.style.background = 'white';
 chatWindow.style.border = '1px solid #ccc';
 chatWindow.style.borderRadius = '10px';
@@ -31,7 +30,7 @@ chatWindow.style.overflow = 'hidden';
 chatWindow.style.zIndex = '9999';
 document.body.appendChild(chatWindow);
 
-// Chat header
+// Header
 const chatHeader = document.createElement('div');
 chatHeader.innerHTML = 'Finance Q&A Bot';
 chatHeader.style.background = '#007bff';
@@ -40,40 +39,45 @@ chatHeader.style.padding = '10px';
 chatHeader.style.fontWeight = 'bold';
 chatWindow.appendChild(chatHeader);
 
-// Chat messages
+// Message area
 const messages = document.createElement('div');
 messages.style.flex = '1';
 messages.style.padding = '10px';
 messages.style.overflowY = 'auto';
-messages.style.maxHeight = '250px';
+messages.style.maxHeight = '280px';
+messages.style.fontSize = '14px';
 chatWindow.appendChild(messages);
 
-// Chat input
+// Input area
 const chatInputContainer = document.createElement('div');
 chatInputContainer.style.display = 'flex';
 chatInputContainer.style.borderTop = '1px solid #ccc';
+
 const chatInput = document.createElement('input');
 chatInput.type = 'text';
-chatInput.placeholder = 'Ask about GST, TDS...';
+chatInput.placeholder = 'Ask about GST, TDS, Income Tax...';
 chatInput.style.flex = '1';
 chatInput.style.padding = '10px';
 chatInput.style.border = 'none';
-chatInputContainer.appendChild(chatInput);
+
 const sendBtn = document.createElement('button');
 sendBtn.innerText = 'Send';
-sendBtn.style.padding = '10px';
+sendBtn.style.padding = '10px 15px';
 sendBtn.style.border = 'none';
 sendBtn.style.background = '#007bff';
 sendBtn.style.color = 'white';
+sendBtn.style.cursor = 'pointer';
+
+chatInputContainer.appendChild(chatInput);
 chatInputContainer.appendChild(sendBtn);
 chatWindow.appendChild(chatInputContainer);
 
-// Toggle chat
+// Toggle window visibility
 chatbotBtn.addEventListener('click', () => {
   chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
 });
 
-// Bot reply using faqData
+// Bot reply logic using faqData
 function getBotReply(msg) {
   msg = msg.toLowerCase();
   for (let keyword in faqData) {
@@ -82,16 +86,18 @@ function getBotReply(msg) {
   return null;
 }
 
-// Send message
+// Handle message send
 sendBtn.addEventListener('click', () => {
-  const userMsg = chatInput.value;
-  if (!userMsg.trim()) return;
+  const userMsg = chatInput.value.trim();
+  if (!userMsg) return;
+
   messages.innerHTML += `<div><strong>You:</strong> ${userMsg}</div>`;
+
   const response = getBotReply(userMsg);
   if (response) {
     messages.innerHTML += `<div><strong>Bot:</strong> ${response}</div>`;
   } else {
-    messages.innerHTML += `<div><strong>Bot:</strong> Sorry, I couldn't understand. Please use the form below.</div>`;
+    messages.innerHTML += `<div><strong>Bot:</strong> Sorry, I couldn’t understand. Please use the form below.</div>`;
     messages.innerHTML += `
       <form name="manual-qa" method="POST" data-netlify="true" style="margin-top: 10px;">
         <input type="hidden" name="form-name" value="manual-qa" />
@@ -101,6 +107,7 @@ sendBtn.addEventListener('click', () => {
       </form>
     `;
   }
+
   chatInput.value = '';
   messages.scrollTop = messages.scrollHeight;
 });
