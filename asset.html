@@ -112,6 +112,35 @@
       </div>
     </div>
   </main>
+<div id="asset-list" style="padding: 20px;"></div>
+
+<script>
+fetch('/assets.json')
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById('asset-list');
+    if (data.length === 0) {
+      container.innerHTML = '<p>No assets found.</p>';
+      return;
+    }
+
+    data.forEach(item => {
+      const box = document.createElement('div');
+      box.style = 'margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px;';
+      box.innerHTML = `
+        <h3>${item.title}</h3>
+        <strong>Category:</strong> ${item.category}<br>
+        <p>${item.description || ''}</p>
+        <a href="${item.file}" target="_blank">📁 Download File</a>
+      `;
+      container.appendChild(box);
+    });
+  })
+  .catch(err => {
+    console.error('Error loading assets:', err);
+    document.getElementById('asset-list').innerHTML = '<p>Error loading assets.</p>';
+  });
+</script>
 
   <script>
     function toggleSidebar() {
