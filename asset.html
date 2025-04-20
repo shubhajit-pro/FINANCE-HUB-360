@@ -141,24 +141,31 @@
     document.getElementById("sidebar").classList.toggle("active");
   }
 
-  fetch('assets.json')
-    .then(res => res.json())
-    .then(data => {
-      const gstContainer = document.getElementById('gst-files');
-      const tdsContainer = document.getElementById('tds-files');
+  async function loadAssetFiles() {
+    try {
+      const res = await fetch('assets/');
+      const html = await res.text();
+      const files = Array.from(html.matchAll(/href="([^"]+\.json)"/g)).map(m => m[1]);
 
-      data.assets.forEach(file => {
-        const fileHTML = `<p><a href="${file.file}" target="_blank">${file.title}</a></p>`;
-        if (file.category === "GST") {
-          gstContainer.innerHTML += fileHTML;
-        } else if (file.category === "TDS") {
-          tdsContainer.innerHTML += fileHTML;
+      const gstContainer = document.getElementById("gst-files");
+      const tdsContainer = document.getElementById("tds-files");
+
+      for (const file of files) {
+        const data = await fetch(`assets/${file}`).then(r => r.json());
+        const linkHTML = `<p><a href="${data.file}" target="_blank">${data.title}</a></p>`;
+
+        if (data.category === "GST") {
+          gstContainer.innerHTML += linkHTML;
+        } else if (data.category === "TDS") {
+          tdsContainer.innerHTML += linkHTML;
         }
-      });
-    })
-    .catch(err => {
-      console.error('Failed to load asset data:', err);
-    });
+      }
+    } catch (err) {
+      console.error("Error loading assets:", err);
+    }
+  }
+
+  loadAssetFiles();
 </script>
 </body>
 </html>
