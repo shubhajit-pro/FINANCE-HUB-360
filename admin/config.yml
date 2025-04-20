@@ -37,3 +37,13 @@ collections:
         fields:
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Body", name: "body", widget: "markdown" }
+  - name: "assets"
+    label: "Assets"
+    folder: "assets"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["GST", "TDS"] }
+      - { label: "File", name: "file", widget: "file" }
+
