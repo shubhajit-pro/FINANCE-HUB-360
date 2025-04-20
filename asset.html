@@ -136,5 +136,29 @@
     populateFiles("gst-files", gstFiles);
     populateFiles("tds-files", tdsFiles);
   </script>
+  <script>
+  function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("active");
+  }
+
+  fetch('assets.json')
+    .then(res => res.json())
+    .then(data => {
+      const gstContainer = document.getElementById('gst-files');
+      const tdsContainer = document.getElementById('tds-files');
+
+      data.assets.forEach(file => {
+        const fileHTML = `<p><a href="${file.file}" target="_blank">${file.title}</a></p>`;
+        if (file.category === "GST") {
+          gstContainer.innerHTML += fileHTML;
+        } else if (file.category === "TDS") {
+          tdsContainer.innerHTML += fileHTML;
+        }
+      });
+    })
+    .catch(err => {
+      console.error('Failed to load asset data:', err);
+    });
+</script>
 </body>
 </html>
