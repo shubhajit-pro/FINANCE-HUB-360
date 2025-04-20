@@ -41,10 +41,9 @@ collections:
     label: "Assets"
     folder: "assets"
     create: true
-    extension: "json"
-    format: "json"
     slug: "{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "File", name: "file", widget: "file" }
       - { label: "Category", name: "category", widget: "select", options: ["GST", "TDS"] }
+      - { label: "Upload File", name: "file", widget: "file" }
+      - { label: "Description", name: "description", widget: "text", required: false }
